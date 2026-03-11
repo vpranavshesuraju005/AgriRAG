@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-card">
+  <div
+    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 1rem;">
+    <h2 style="color: var(--primary);"><i class="fas fa-chart-line"></i> AgriRAG Analysis Results</h2>
+    <div style="display: flex; gap: 10px;">
+      <button class="btn btn-outline" style="padding: 0.5rem 1rem;" onclick="window.print()"><i
+          class="fas fa-print"></i> Export</button>
+    </div>
+  </div>
+
+  <div class="results-container" style="color: var(--text-main); font-size: 0.95rem; overflow-x: auto; padding: 5px;">
+    {{ data|safe }}
+  </div>
+
+  {% if img %}
+  <div style="margin-top: 2rem; text-align: center;">
+    <img src="data:image/png;base64, {{ img }}" alt="Visualization"
+      style="max-width: 100%; border-radius: 15px; border: 1px solid var(--glass-border);">
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  /* Styling the dynamic tables injected from Django */
+  .results-container table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+  }
+
+  .results-container th {
+    background: var(--primary) !important;
+    color: white !important;
+    padding: 1rem !important;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+  }
+
+  .results-container td {
+    padding: 1rem !important;
+    border-bottom: 1px solid #f1f5f9;
+    color: var(--text-dim) !important;
+  }
+
+  .results-container tr:last-child td {
+    border-bottom: none;
+  }
+
+  .results-container tr:nth-child(even) td {
+    background-color: #f9fafb;
+  }
+
+  .results-container tr:hover td {
+    background: #f1f5f9 !important;
+    color: var(--primary) !important;
+  }
+
+  .results-container font {
+    color: inherit !important;
+    font-size: inherit !important;
+  }
+</style>
+{% endblock %}

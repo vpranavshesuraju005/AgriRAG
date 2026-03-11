@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto;">
+	<div class="glass-card" style="text-align: center;">
+		<i class="fas fa-cloud-upload-alt" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 1.5rem;"></i>
+		<h2 style="margin-bottom: 1rem;">Data Management Hub</h2>
+		<p style="color: var(--text-dim); margin-bottom: 2.5rem;">
+			Upload and process your agricultural datasets. Our system will automatically normalize
+			and prepare the data for training the AgriRAG models.
+		</p>
+
+		<form action="{% url 'LoadDatasetAction' %}" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<div style="border: 2px dashed var(--glass-border); border-radius: 20px; padding: 3rem; margin-bottom: 2rem; transition: border-color 0.3s;"
+				id="drop-zone">
+				<input type="file" name="t1" id="file-input" style="display: none;" onchange="updateFileName()">
+				<label for="file-input" style="cursor: pointer;">
+					<div style="font-size: 1.1rem; font-weight: 500;" id="file-name-label">
+						<i class="fas fa-file-csv" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>
+						Select CSV Dataset File
+					</div>
+				</label>
+			</div>
+
+			<button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.2rem; font-size: 1.1rem;">
+				<i class="fas fa-cog"></i> Process & Analyze Dataset
+			</button>
+		</form>
+	</div>
+
+	<div style="margin-top: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+		<div class="glass-card" style="padding: 1.5rem;">
+			<h4 style="margin-bottom: 1rem;"><i class="fas fa-check" style="color: var(--primary);"></i> Requirements
+			</h4>
+			<ul
+				style="list-style: none; font-size: 0.85rem; color: var(--text-dim); display: flex; flex-direction: column; gap: 8px;">
+				<li>• Format: CSV (.csv)</li>
+				<li>• Max Size: 50MB</li>
+				<li>• Required Columns: N, P, K, Soil, Season</li>
+			</ul>
+		</div>
+		<div class="glass-card" style="padding: 1.5rem;">
+			<h4 style="margin-bottom: 1rem;"><i class="fas fa-sync" style="color: var(--accent);"></i> Process Info</h4>
+			<p style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.5;">
+				Automated cleaning, label encoding, and normalization using Standard Scaler will be performed
+				immediately after upload.
+			</p>
+		</div>
+	</div>
+</div>
+
+<script>
+	function updateFileName() {
+		const input = document.getElementById('file-input');
+		const label = document.getElementById('file-name-label');
+		if (input.files.length > 0) {
+			label.innerHTML = `<i class="fas fa-file-check" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px; display: block;"></i> Selected: ${input.files[0].name}`;
+			document.getElementById('drop-zone').style.borderColor = 'var(--primary)';
+		}
+	}
+</script>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="display: flex; flex-direction: column; gap: 2rem;">
+	<div class="glass-card" style="text-align: center; padding: 3rem 1rem;">
+		<h1 style="font-size: 2.5rem; margin-bottom: 1rem;"><i class="fas fa-magic" style="color: var(--primary);"></i>
+			Precision Crop Advisor</h1>
+		<p style="color: var(--text-dim); max-width: 700px; margin: 0 auto;">
+			Enter your soil and environmental parameters below. Our AI ensemble (Random Forest + LSTM + AgriRAG)
+			will analyze the context and recommend the most profitable and suitable crop.
+		</p>
+	</div>
+
+	<div style="display: grid; grid-template-columns: 1fr 350px; gap: 2rem;">
+		<div class="glass-card">
+			<h3 style="margin-bottom: 2rem; display: flex; align-items: center; gap: 10px;">
+				<i class="fas fa-flask" style="color: var(--accent);"></i> Soil & Climate Data
+			</h3>
+
+			<form action="{% url 'PredictAction' %}" method="post">
+				{% csrf_token %}
+				<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+					<div>
+						<label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: 500;">Soil
+							Type</label>
+						<select name="t1" required>
+							<option value="Black">Black</option>
+							<option value="Clay">Clay</option>
+							<option value="Loamy">Loamy</option>
+							<option value="Sandy">Sandy</option>
+						</select>
+					</div>
+					<div>
+						<label
+							style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: 500;">Climate
+							Season</label>
+						<select name="t2" required>
+							<option value="Monsoon">Monsoon</option>
+							<option value="Summer">Summer</option>
+							<option value="Winter">Winter</option>
+						</select>
+					</div>
+				</div>
+
+				<div style="margin-top: 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+					<div>
+						<label style="display: block; margin-bottom: 0.5rem; font-size: 0.8rem;">Nitrogen (N)</label>
+						<input type="text" name="t3" placeholder="0-100" required>
+					</div>
+					<div>
+						<label style="display: block; margin-bottom: 0.5rem; font-size: 0.8rem;">Phosphorus (P)</label>
+						<input type="text" name="t4" placeholder="0-100" required>
+					</div>
+					<div>
+						<label style="display: block; margin-bottom: 0.5rem; font-size: 0.8rem;">Potassium (K)</label>
+						<input type="text" name="t5" placeholder="0-100" required>
+					</div>
+				</div>
+
+				<div style="margin-top: 2rem;">
+					<button type="submit" class="btn btn-primary"
+						style="width: 100%; padding: 1.2rem; font-size: 1.1rem; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+						<i class="fas fa-brain"></i> Generate Precision Report
+					</button>
+				</div>
+			</form>
+		</div>
+
+		<div class="glass-card" style="background: rgba(74, 222, 128, 0.05);">
+			<h4 style="color: var(--primary); margin-bottom: 1.5rem;"><i class="fas fa-info-circle"></i> Why this works?
+			</h4>
+			<div style="display: flex; flex-direction: column; gap: 1rem; font-size: 0.9rem;">
+				<p style="color: var(--text-dim);">
+					<strong>Random Forest:</strong> Analyzes categorical and numerical data to find the best crop match.
+				</p>
+				<p style="color: var(--text-dim);">
+					<strong>LSTM:</strong> Predicts market price trends to ensure profitability.
+				</p>
+				<p style="color: var(--text-dim);">
+					<strong>RAG Agent:</strong> Provides conversational insights on fertilizer and pest management for
+					the recommended crop.
+				</p>
+			</div>
+			<div
+				style="margin-top: 2rem; padding: 1rem; border: 1px dashed var(--glass-border); border-radius: 10px; text-align: center;">
+				<p style="font-size: 0.8rem; color: var(--accent);">
+					<i class="fas fa-bolt"></i> Real-time sensors active
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="display: flex; justify-content: center; align-items: center; min-height: 80vh;">
+	<div class="glass-card" style="width: 100%; max-width: 550px;">
+		<div style="text-align: center; margin-bottom: 2rem;">
+			<i class="fas fa-seedling" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+			<h2>Create Account</h2>
+			<p style="color: var(--text-dim);">Join the future of precision farming</p>
+		</div>
+
+		{% if data %}
+		<div
+			style="padding: 1rem; background: rgba(74, 222, 128, 0.2); border-radius: 10px; margin-bottom: 1.5rem; color: var(--primary); text-align: center;">
+			{{ data }}
+		</div>
+		{% endif %}
+
+		<form action="{% url 'SignupAction' %}" method="post">
+			{% csrf_token %}
+			<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+				<div style="margin-bottom: 1.2rem;">
+					<label
+						style="display: block; margin-bottom: 0.5rem; font-size: 0.85rem; font-weight: 500;">Username</label>
+					<input type="text" name="t1" placeholder="abbbcd" required>
+				</div>
+				<div style="margin-bottom: 1.2rem;">
+					<label
+						style="display: block; margin-bottom: 0.5rem; font-size: 0.85rem; font-weight: 500;">Password</label>
+					<input type="password" name="t2" placeholder="••••••••" required>
+				</div>
+			</div>
+
+			<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+				<div style="margin-bottom: 1.2rem;">
+					<label style="display: block; margin-bottom: 0.5rem; font-size: 0.85rem; font-weight: 500;">Contact
+						Number</label>
+					<input type="text" name="t3" placeholder="+91 9876543210" required>
+				</div>
+				<div style="margin-bottom: 1.2rem;">
+					<label style="display: block; margin-bottom: 0.5rem; font-size: 0.85rem; font-weight: 500;">Email
+						Address</label>
+					<input type="email" name="t4" placeholder="abbbcd@example.com" required>
+				</div>
+			</div>
+
+			<div style="margin-bottom: 1.5rem;">
+				<label style="display: block; margin-bottom: 0.5rem; font-size: 0.85rem; font-weight: 500;">Farm
+					Address</label>
+				<textarea name="t5" placeholder="Enter your full farm location" rows="3"
+					style="width: 100%; border-radius: 10px;"></textarea>
+			</div>
+
+			<button type="submit" class="btn btn-primary"
+				style="width: 100%; padding: 1rem; font-size: 1.1rem; border-radius: 10px;">Create My Account</button>
+		</form>
+
+		<div style="margin-top: 1.5rem; text-align: center; font-size: 0.9rem; color: var(--text-dim);">
+			Already have an account? <a href="{% url 'UserLogin' %}"
+				style="color: var(--primary); text-decoration: none; font-weight: 600;">Sign In</a>
+		</div>
+	</div>
+</div>
+{% endblock %}

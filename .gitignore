@@ -1,0 +1,15 @@
+venv/
+__pycache__/
+*.pyc
+db.sqlite3
+.env
+error_output.txt
+error_output_2.txt
+error_output_3.txt
+SCREENS.docx
+DB.txt
+*.log
+.DS_Store
+.idea/
+.vscode/
+node_modules/
